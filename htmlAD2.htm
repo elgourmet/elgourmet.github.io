@@ -1,0 +1,314 @@
+<html>
+
+<head>
+<style>
+
+
+#myVideo
+{
+
+padding-top:0px;
+padding-bottom:0px;
+
+}
+
+#schleife
+{
+background-image:url('schleifeweb.png');
+position:absolute;
+top:145px;
+z-index:5000;
+width:300px;
+height:90px;
+}
+
+
+body
+{
+color:#b7185b;
+padding:0px;
+margin:0px;
+background-image:url('background_neu.jpg');
+background-repeat:no-repeat;
+background-position:top left;
+width:600px;
+}
+
+#video-controls {
+	position: absolute;
+	bottom: 225;
+	left: 264;
+	right: 0;
+	padding: 5px;
+	opacity: 0;
+	-webkit-transition: opacity .3s;
+	-moz-transition: opacity .3s;
+	-o-transition: opacity .3s;
+	-ms-transition: opacity .3s;
+	transition: opacity .3s;
+
+	);
+}
+
+#videowrapper:hover #video-controls {
+	opacity: .9;
+}
+
+#videowrapper
+{
+border:0px solid #ccc;
+position:absolute;
+top:0px;
+left:0px;
+z-index:100;
+height:600px;
+}
+
+button {
+	
+
+	border: 0;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	-o-border-radius: 0px;
+	border-radius: 0px;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+
+#innervideowrapper
+{
+height:200px;
+}
+
+
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+
+
+
+<script>
+
+
+
+
+
+
+     // DAS IST DAS VIDEO UNMUTE ON HOVER
+
+
+     // DAS IST DAS VIDEO UNMUTE ON HOVER
+
+
+$(document.getElementById("myVideo")).ready(function(){
+var backAudio = $('#myVideo');
+var muted = true;
+backAudio[0].volume = 0;
+
+ $(document.getElementById("videowrapper")).hover(function(){
+     var video = $(document.this);
+     if (muted) {
+         video.attr("disabled", "");
+         backAudio.animate({volume: 1}, 10, function () {
+             muted = false;
+         });
+     }
+     else {
+         video.attr("disabled", "");
+         backAudio.animate({volume: 0}, 10, function () {
+             muted = true;
+         });
+     }
+ }); <!-- END | mute -->
+}); <!-- END | mediaplayer -->
+
+	
+
+
+
+window.onload = function() {
+
+  // Video
+  var video = document.getElementById("myVideo");
+
+  // Buttons
+  var playButton = document.getElementById("play-pause");
+  var muteButton = document.getElementById("mute");
+  var fullScreenButton = document.getElementById("full-screen");
+
+  // Sliders
+  var seekBar = document.getElementById("seek-bar");
+  var volumeBar = document.getElementById("volume-bar");
+
+}
+
+
+  // DAS SIND DIE VIDEOCONTROLS
+
+window.onload = function() {
+
+	// Video
+	var video = document.getElementById("myVideo");
+
+	// Buttons
+	var playButton = document.getElementById("play-pause");
+	var muteButton = document.getElementById("mute");
+	var fullScreenButton = document.getElementById("full-screen");
+
+	// Sliders
+	var seekBar = document.getElementById("seek-bar");
+	var volumeBar = document.getElementById("volume-bar");
+
+
+	// Event listener for the play/pause button
+	playButton.addEventListener("click", function() {
+		if (video.paused == true) {
+			// Play the video
+			video.play();
+
+			// Update the button text to 'Pause'
+			playButton.innerHTML = '<img src="pause.png" />';
+		} else {
+			// Pause the video
+			video.pause();
+
+			// Update the button text to 'Play'
+			playButton.innerHTML = '<img src="play.png" />';
+		}
+	});
+
+
+	// Event listener for the mute button
+	muteButton.addEventListener("click", function() {
+		if (video.muted == false) {
+			// Mute the video
+			video.muted = true;
+
+			// Update the button text
+			muteButton.innerHTML = "Unmute";
+		} else {
+			// Unmute the video
+			video.muted = false;
+
+			// Update the button text
+			muteButton.innerHTML = "Mute";
+		}
+	});
+
+
+	// Event listener for the full-screen button
+	fullScreenButton.addEventListener("click", function() {
+		if (video.requestFullscreen) {
+			video.requestFullscreen();
+		} else if (video.mozRequestFullScreen) {
+			video.mozRequestFullScreen(); // Firefox
+		} else if (video.webkitRequestFullscreen) {
+			video.webkitRequestFullscreen(); // Chrome and Safari
+		}
+	});
+
+
+	// Event listener for the seek bar
+	seekBar.addEventListener("change", function() {
+		// Calculate the new time
+		var time = video.duration * (seekBar.value / 100);
+
+		// Update the video time
+		video.currentTime = time;
+	});
+
+	
+	// Update the seek bar as the video plays
+	video.addEventListener("timeupdate", function() {
+		// Calculate the slider value
+		var value = (100 / video.duration) * video.currentTime;
+
+		// Update the slider value
+		seekBar.value = value;
+	});
+
+	// Pause the video when the seek handle is being dragged
+	seekBar.addEventListener("mousedown", function() {
+		video.pause();
+	});
+
+	// Play the video when the seek handle is dropped
+	seekBar.addEventListener("mouseup", function() {
+		video.play();
+	});
+
+	// Event listener for the volume bar
+	volumeBar.addEventListener("change", function() {
+		// Update the video volume
+		video.volume = volumeBar.value;
+	});
+}
+
+
+
+</script>
+</head>
+
+
+<body id="body">
+
+
+
+<div style="display:none;">Iteration: <span id="iteration"></span></div>
+
+<div id="videowrapper" >
+<a href="http://www.omni-biotic.com"><div id="schleife"></div></a>
+<a href="http://www.omni-biotic.com" style="display:block; width:300px; height:215px;" target="_blank"></a>
+
+<div id="innervideowrapper">
+<video width="300px" id="myVideo" autoplay volume="0" class="mute">
+    <source src="ds1.mp4" type="video/mp4" />
+    <source src="ds1.ogv" type="video/ogg" />
+<source src="ds1.webm" type="video/webm" />
+
+
+   
+</video>
+  <div id="video-controls">
+    <button type="button" id="play-pause" style="background-color:transparent"; ><img src="pause.png" /></button>
+</div>
+</div>
+
+<a href="http://www.omni-biotic.com" style="display:block; width:300px; height:215px;" target="_blank"></a>
+
+
+
+
+</div>
+
+
+
+<script>
+var iterations = 1;
+
+document.getElementById('iteration').innerText = iterations;
+
+myVideo.addEventListener('ended', function () {    
+
+    if (iterations < 3) {       
+
+        this.currentTime = 0;
+        this.play();
+        iterations ++;
+        
+        document.getElementById('iteration').innerText = iterations;
+
+    }   
+
+}, false);
+
+
+
+
+</script>
+</body>
+</html>
